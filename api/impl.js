@@ -228,28 +228,34 @@ module.exports = {
     },
     badjs: {
         record: function (req, res, next) {
-            // checkLogin(req, res, function () {
-            var r = req.query['r'],
-                rs = r.split('|'),
-                pid = rs[0],
-                line = rs[1] === void(0) ? -1 : rs[1] || 0,
-                col = rs[2] === void(0) ? -1 : rs[2] || 0,
-                url = rs[3],
-                platform = rs[4],
-                version = rs[5],
-                msg = rs[6];
-            Badjs.save({
-                pid: pid,
-                url: url,
-                line: line,
-                col: col,
-                platform: platform,
-                version: version,
-                message: msg
-            }, function (o) {
-                res.json(o);
-            });
-            // });
+            var r = req.query['r'];
+            if (r) {
+                var rs = r.split('|'),
+                    pid = rs[0],
+                    line = rs[1] === void(0) ? -1 : rs[1] || 0,
+                    col = rs[2] === void(0) ? -1 : rs[2] || 0,
+                    url = rs[3],
+                    platform = rs[4],
+                    version = rs[5],
+                    msg = rs[6];
+                Badjs.save({
+                    pid: pid,
+                    url: url,
+                    line: line,
+                    col: col,
+                    platform: platform,
+                    version: version,
+                    message: msg
+                }, function (o) {
+                    res.json(o);
+                });
+            }
+            else {
+                res.json({
+                    code: 10,
+                    msg: ''
+                });
+            }
         },
         list: function (req, res, next) {
             checkLogin(req, res, function () {
@@ -344,6 +350,12 @@ module.exports = {
                         msg: e.message
                     });
                 }
+            }
+            else {
+                res.json({
+                    code: 10,
+                    msg: ''
+                });
             }
         },
         list: function (req, res, next) {

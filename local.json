@@ -1,0 +1,12 @@
+{
+  "mongodb": {
+    "server": "127.0.0.1",
+    "port": 27017,
+    "db": "moniter",
+    "user": "",
+    "pwd": ""
+  },
+  "server": {
+    "port": 3011
+  }
+}
