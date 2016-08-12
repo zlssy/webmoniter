@@ -1,0 +1,123 @@
+@charset "UTF-8";
+html, body, ul, ol, li, dl, dt, dd, form { padding: 0; margin: 0; }
+
+html { font-size: 14px; font-family: "微软雅黑", "宋体", Arial; }
+
+body.dark { background: #1D2024; }
+
+a, a:link, a:visited { color: black; text-decoration: none; }
+
+a:hover { text-decoration: underline; }
+
+.block { display: block !important; }
+
+header { position: fixed; height: 3.57143rem; line-height: 3.57143rem; background: #438eb9; color: white; top: 0; left: 0; right: 0; overflow: hidden; z-index: 1; }
+
+header .logo { font-weight: bold; font-size: 1.42857rem; margin-left: 0.85714rem; }
+
+header .welcome { position: absolute; top: 0; right: 12px; }
+
+header .welcome a { color: white; }
+
+header .welcome a:hover { color: rgba(255, 255, 255, 0.5); }
+
+aside { position: fixed; width: 14.28571rem; top: 3.57143rem; left: 0; bottom: 0; border-right: 1px solid #ccc; background: white; z-index: 1; }
+
+aside > ul > li { position: relative; list-style: none; line-height: 2.57143rem; background: #f8f8f8; border-bottom: 1px solid #e5e5e5; }
+
+aside > ul > li a { padding: 0.42857rem 0.71429rem; }
+
+aside > ul > li a:hover { text-decoration: none; }
+
+aside > ul > li:hover, aside > ul > li.active { background: rgba(248, 248, 248, 0.5); }
+
+aside > ul > li:hover:before, aside > ul > li.active:before { display: block; }
+
+aside > ul > li:hover a, aside > ul > li.active a { color: #2b7dbc; }
+
+aside > ul > li:before { display: none; content: ""; position: absolute; top: -1px; left: 0; z-index: 1; height: 2.57143rem; width: 0.21429rem; max-width: 0.21429rem; overflow: hidden; background-color: #629cc9; }
+
+.main-wrapper { margin: 4.28571rem 0 0 15rem; }
+
+.main-wrapper .main-container { width: 100%; }
+
+.main-wrapper .main-container .nothing { line-height: 28.57143rem; text-align: center; }
+
+.text-center { text-align: center; }
+
+.error { color: red; }
+
+.correct { color: #9cc573; }
+
+.half { width: 50%; display: inline-block; overflow: hidden; }
+
+.full { width: 100%; }
+
+
+.btn.mb10 { margin-bottom: 10px; }
+
+.viewToolbar input[type=checkbox] { margin: 0 0 10px 8px; }
+
+.viewToolbar span { position: relative; display: inline-block; top: -4px; }
+
+.index .nothing { line-height: 28.57143rem; text-align: center; }
+
+.pager { line-height: 24px; margin: 6px 0; }
+
+.pager .pager-item, .pager .pager-btn { display: inline-block; padding: 4px 10px; margin: 0 7px; border: 1px solid #e5e5e5; }
+
+.pager .pager-item:hover, .pager .pager-item.active, .pager .pager-btn:hover, .pager .pager-btn.active { border-color: #87b87f; }
+
+.pager .pager-input { width: 32px; border: 1px solid #e5e5e5; padding: 8px 4px; margin: 0; text-align: center; }
+
+.pager-wrapper { border: 1px solid #e5e5e5; margin: 4px 0; }
+
+.point nav { margin-bottom: 12px; }
+
+.point .page-name { cursor: pointer; }
+
+.point tr.active { background: #9cc573; color: #1D2024; }
+
+.create-point .control-label { width: 80px; }
+
+.create-point .controls { margin-left: 100px; line-height: 30px; }
+
+#page-container { width: 49%; height: 100%; min-height: 35.71429rem; display: inline-block; float: left; border-right: 1px dashed #ccc; padding: 0 6px 0 0; overflow: hidden; }
+
+#point-container { width: 49%; display: inline-block; float: right; margin-right: 1%; }
+
+.project nav { margin-bottom: 12px; }
+
+.reg-panel { width: 26.78571rem; display: block; margin: 0.85714rem auto; background: white; border: 0.35714rem solid #394557; }
+
+.reg-panel .main { padding: 1.71429rem 3.42857rem; }
+
+.reg-panel .back-to-login { width: 100%; line-height: 1.71429rem; padding: 0.42857rem 0; text-align: center; background: #76b774; }
+
+.reg-panel .back-to-login a { color: #FE9; font-weight: bold; }
+
+.reg-panel input.correct { border-color: #9cc573; }
+
+.reg-panel input.error { border-color: #f2a696; }
+
+.reg-panel .input-icon { position: relative; }
+
+.moniter-user-choose ul { border: 1px solid #9cc573; padding: 4px; }
+
+.moniter-user-choose ul li { cursor: pointer; line-height: 1.71429rem; border-bottom: 1px dashed #ccc; padding: 0 0 0 12px; }
+
+.moniter-user-choose ul li.choose { background: #2e8965; color: white; }
+
+.moniter-user-choose .user-choose-left, .moniter-user-choose .user-choose-right { float: left; width: 45%; overflow: hidden; }
+
+.moniter-user-choose .user-choose-left ul { border-color: #f2a696; }
+
+.moniter-user-choose .user-choose-right { float: right; }
+
+.moniter-user-choose .user-choose-control { text-align: center; }
+
+.moniter-user-choose .user-choose-control .move-2-right, .moniter-user-choose .user-choose-control .move-2-left { cursor: pointer; }
+
+.ui-dialog input.correct { border-color: #9cc573; }
+
+.ui-dialog input.error { border-color: #f2a696; }

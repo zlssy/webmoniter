@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <% include public/cssandjs %>
+</head>
+<body>
+<% include public/head %>
+<% include public/aside %>
+<div class="main-wrapper">
+    <div class="main-container point">
+        <div class="breadcrumb"><a href="/project">我的项目</a> &gt; <span id="project-name"></span></div>
+        <nav>
+            <button id="page-create" class="btn btn-danger">创建页面</button>
+            &nbsp;
+            <button id="p-create" class="btn btn-primary">创建监控点</button>
+        </nav>
+        <div id="main">
+            <div id="page-container"></div>
+            <div id="point-container"></div>
+        </div>
+    </div>
+</div>
+<script id="createPageTpl" type="text/html">
+    <div class="form-horizontal create-point">
+        <div class="control-group">
+            <label class="control-label" for="pname">名称：</label>
+            <div class="controls">
+                <input type="text" id="pname" name="pname" placeholder="页面名称"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="pdesc">简述：</label>
+            <div class="controls">
+                <input type="text" id="pdesc" name="pdesc" placeholder="简要描述"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button id="page-save" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="createTpl" type="text/html">
+    <div class="form-horizontal create-point">
+        <div class="control-group">
+            <label class="control-label">页面名称：</label>
+            <div class="controls error"><%%=pagename%></div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="name">名称：</label>
+            <div class="controls">
+                <input type="text" id="name" name="name" placeholder="监控点名称"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="desc">简述：</label>
+            <div class="controls">
+                <input type="text" id="desc" name="desc" placeholder="监控点简要描述"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="tag">标记：</label>
+            <div class="controls">
+                <input type="text" id="tag" name="tag" class="input-mini" placeholder="数字标记" value="<%%=maxTag%>"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button id="p-save" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</script>
+<script>require(['moniter-point'])</script>
+</body>
+</html>

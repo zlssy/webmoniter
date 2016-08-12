@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title || '新环境监控系统' %></title>
+    <% include public/cssandjs %>
+</head>
+<body class="dark">
+<div class="wrapper-container">
+    <div class="reg-panel">
+        <div class="main">
+            <div class="reg-item">
+                <label>用户名：</label>
+                <input type="text" name="username" class="input-xlarge"/>
+            </div>
+            <div class="reg-item">
+                <label>密码：</label>
+                <input type="password" name="password" class="input-xlarge"/>
+            </div>
+            <div class="reg-item">
+                <label>确认密码：</label>
+                <input type="password" name="repassword" class="input-xlarge"/>
+            </div>
+            <div class="reg-item">
+                <button class="btn btn-primary">注册</button>
+                &nbsp;&nbsp;
+                <button class="btn reset">重置</button>
+            </div>
+        </div>
+        <div class="back-to-login"><a href="/login"><i class="icon-arrow-left"></i> 返回登录</a></div>
+    </div>
+</div>
+<script>
+    require(['moniter-reg']);
+</script>
+</body>
+</html>

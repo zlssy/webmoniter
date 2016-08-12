@@ -1,0 +1,9 @@
+logs
+*.log
+.grunt
+gulpfile.js
+config.json
+node_modules
+.idea
+.npm
+sass

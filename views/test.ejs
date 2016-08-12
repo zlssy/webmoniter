@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <% include public/cssandjs %>
+    <script>window.onerror = function () {
+            var pid = '57a1a8882a17c9181b713b54', api = "http://localhost:3011/badjs/s.gif?r=", arg = arguments, msg = arg[0], url = arg[1], line = arg[2], col = arg[3], u = navigator.userAgent, platform = '', img = new Image;
+            platform = !(u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) && !(u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1) && !(u.indexOf('iPad') > -1) ? 'PC' : 'Mobile';
+            img.src = api + pid + '|' + line + '|' + col + '|' + url + '|' + platform + '|' + u + '|' + msg;
+            return true;
+        }</script>
+</head>
+<body>
+<h1>111</h1>
+<h3>222</h3>
+<table width="100%">
+    <thead>
+    <tr>
+        <th>第一列</th>
+        <th>第二列</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>111</td>
+        <td>222</td>
+    </tr>
+    <tr>
+        <td>111</td>
+        <td>222</td>
+    </tr>
+    <tr>
+        <td>111</td>
+        <td>222</td>
+    </tr>
+    </tbody>
+</table>
+<script>//console.log(serverConfig)</script>
+<script>
+    require(['report'], function (report) {
+        var r = report('57a93d5c371ee62c0e1b4491');
+
+        r.addPoint(1);
+//        r.addPoint(2, Math.ceil(Math.random()*100));
+        r.report();
+    });
+</script>
+</body>
+</html>

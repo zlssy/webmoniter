@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <% include public/cssandjs %>
+</head>
+<body>
+<% include public/head %>
+<% include public/aside %>
+<div class="main-wrapper">
+    <div class="main-container">
+        <div id="main"></div>
+    </div>
+</div>
+<script id="resetTpl" type="text/html">
+    <div class="form-horizontal create-point">
+        <div class="control-group">
+            <label class="control-label">用户名：</label>
+            <div class="controls error"><%%=username%></div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="pwd">新密码：</label>
+            <div class="controls">
+                <input type="password" id="pwd" name="pwd" placeholder="新密码"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="repwd">确认密码：</label>
+            <div class="controls">
+                <input type="password" id="repwd" name="repwd" placeholder="确认密码"/>
+            </div>
+        </div>
+    </div>
+</script>
+<script>require(['moniter-user'])</script>
+</body>
+</html>

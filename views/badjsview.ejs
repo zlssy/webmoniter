@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <% include public/cssandjs %>
+    <link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+</head>
+<body>
+<% include public/head %>
+<% include public/aside %>
+<div class="main-wrapper">
+    <div class="main-container badjsview">
+        <div class="breadcrumb"><a href="/project">我的项目</a> &gt; <span id="project-name"></span></div>
+        <div>
+            <input type="text" name="start" placeholder="开始时间" /> - <input type="text" name="end" placeholder="结束时间" />&nbsp;
+            <button id="search" class="btn btn-primary mb10">查询</button>
+            <button id="clear" class="btn mb10">清除</button>
+        </div>
+        <div class="pager-wrapper"></div>
+        <div id="main"></div>
+        <div class="pager-wrapper"></div>
+    </div>
+</div>
+<script>require(['moniter-badjsview'])</script>
+</body>
+</html>
