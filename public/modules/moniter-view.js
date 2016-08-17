@@ -158,6 +158,7 @@ define('moniter-view', ['jquery', 'util', 'dialog', 'moment', 'pager', 'simpleTa
             syncPages();
             getPoint().then(query).catch(function (e) {
                 mainDom.html('<div class="nothing">' + (e ? e : '请求数据失败。') + '</div>');
+                pagerDom.html('').hide();
             });
             showCharts();
         });
@@ -279,6 +280,7 @@ define('moniter-view', ['jquery', 'util', 'dialog', 'moment', 'pager', 'simpleTa
         return getPoint();
     }).then(query).catch(function (e) {
         mainDom.html('<div class="nothing">' + (e ? e : '请求数据失败。') + '</div>');
+        pagerDom.html('').hide();
     });
     getUserInfo();
     bindEvents();

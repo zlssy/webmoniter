@@ -234,10 +234,11 @@ module.exports = {
                     pid = rs[0],
                     line = rs[1] === void(0) ? -1 : rs[1] || 0,
                     col = rs[2] === void(0) ? -1 : rs[2] || 0,
-                    url = rs[3],
-                    platform = rs[4],
-                    version = rs[5],
-                    msg = rs[6];
+                    url = rs[3] || '',
+                    platform = rs[4] || '',
+                    version = rs[5] || '',
+                    msg = rs[6] || '',
+                    business = rs[7] || '';
                 Badjs.save({
                     pid: pid,
                     url: url,
@@ -245,16 +246,14 @@ module.exports = {
                     col: col,
                     platform: platform,
                     version: version,
-                    message: msg
+                    message: msg,
+                    business: business
                 }, function (o) {
-                    res.json(o);
+                    res.end();
                 });
             }
             else {
-                res.json({
-                    code: 10,
-                    msg: ''
-                });
+                res.end();
             }
         },
         list: function (req, res, next) {
@@ -338,24 +337,16 @@ module.exports = {
                             tag: bArr[i],
                             value: bArr[i + 1] || ''
                         }, function (o) {
-                            res.end('');
+                            res.end();
                         });
                     }
-                    res.json({
-                        code: 0
-                    });
+                    res.end();
                 } catch (e) {
-                    res.json({
-                        code: 1,
-                        msg: e.message
-                    });
+                    res.end();
                 }
             }
             else {
-                res.json({
-                    code: 10,
-                    msg: ''
-                });
+                res.end();
             }
         },
         list: function (req, res, next) {

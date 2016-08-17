@@ -23,7 +23,8 @@ define('moniter-badjsview', ['jquery', 'util', 'simpleTable', 'moment', 'pager',
                         var t = simpleTable({
                             cols: [
                                 {name: '错误信息', id: 'message', width: 260, css: 'error'},
-                                {name: '错误网址', id: 'url', width: 200, css: 'correct'},
+                                {name: '错误网址', id: 'business', width: 200, css: 'correct'},
+                                {name: 'js所在文件', id: 'url', width: 200, css: 'correct'},
                                 {
                                     name: '时间', id: 'createTime', width: 90, format: function (v, idef, row) {
                                     return v ? moment(v).format('YYYY-MM-DD HH:mm:ss') : v;

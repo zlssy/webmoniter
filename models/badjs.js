@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 var badjs = new Schema({
     pid: String,
     url: String,
+    business: String,
     message: String,
     line: Number,
     col: Number,
