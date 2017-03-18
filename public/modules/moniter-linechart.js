@@ -1,6 +1,6 @@
 define('moniter-linechart', ['jquery', 'util', 'moment', 'echarts'], function ($, util, moment, echarts) {
     var pointApi = globalConfig.apiRoot + 'point/list?pid=',
-        recordApi = globalConfig.apiRoot + 'record/stat?',
+        recordApi = globalConfig.apiRoot + 'record/statbydate?',
         guid = 1;
 
     function getWidth() {
@@ -37,16 +37,16 @@ define('moniter-linechart', ['jquery', 'util', 'moment', 'echarts'], function ($
             this.container.html('<div id="' + this.id + '" style="width:' + this.getWidth() + 'px; height:' + this.getHeight() + 'px;"></div>');
             this.linechart = echarts.init($('#' + this.id).get(0));
 
-            for (var i = 0; i < 30; i++) {
-                this.date.push(moment().add(i - 29, 'days').format('YYYY-MM-DD'));
-            }
+            // for (var i = 0; i < 30; i++) {
+            //     this.date.push(moment().add(i - 29, 'days').format('YYYY-MM-DD'));
+            // }
 
             this.linechart.showLoading();
             this.initData();
         },
         initData: function () {
             var self = this;
-            this.getSeries().then(function(){
+            this.getSeries().then(function () {
                 return self.getLatestMonthData();
             }).then(function (data) {
                 self.linechart.hideLoading();
@@ -66,8 +66,7 @@ define('moniter-linechart', ['jquery', 'util', 'moment', 'echarts'], function ($
                             for (var i = 0; i < json.data.length; i++) {
                                 self.pointMap[json.data[i].tag] = {
                                     name: json.data[i].name,
-                                    color: '',
-                                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                                    color: ''
                                 };
                             }
                             resolve(json.data);
@@ -118,6 +117,7 @@ define('moniter-linechart', ['jquery', 'util', 'moment', 'echarts'], function ($
                     });
                 }
             }
+
             var opt1 = {
                 tooltip: {
                     trigger: 'axis',
@@ -147,12 +147,21 @@ define('moniter-linechart', ['jquery', 'util', 'moment', 'echarts'], function ($
             this.linechart.setOption(opt1);
         },
         getGroup: function (data) {
-            var d, t, v, n = moment().dayOfYear();
-            for (var i = 0, l = data.length; i < l; i++) {
+            var d, t, v, n = moment().dayOfYear(), dates = {}, ymd;
+            for (var i = data.length - 1; i > 0; i--) {
                 d = data[i];
                 t = d.tag;
-                v = 29 - (n - moment(d.createTime).dayOfYear());
-                this.pointMap[t].data[v >= 0 ? v : 0]++;
+                v = moment(d.date).format("D") - 0;
+                ymd = moment(d.date).format("YYYY-MM-DD");
+                !dates[t] && (dates[t] = []);
+                dates[t].push(ymd);
+                !this.pointMap[t].data && (this.pointMap[t].data = []);
+                this.pointMap[t].data.push(d.count);
+            }
+            for (var k in dates) {
+                if (dates[k].length > this.date.length) {
+                    this.date = dates[k];
+                }
             }
             return this.pointMap;
         },

@@ -397,6 +397,28 @@ module.exports = {
                     });
                 }
             });
+        },
+        statbydate: function (req, res, next) {
+            checkLogin(req, res, function () {
+                var pid = req.query['pid'],
+                    startDate = req.query['startdate'],
+                    endDate = req.query['enddate'],
+                    cond = [];
+                if (pid) {
+                    startDate && cond.push({createTime: {$gt: new Date(startDate - 0)}});
+                    endDate && cond.push({createTime: {$lt: new Date(endDate - 0)}});
+                    cond.push({pid: pid});
+                    Record.statByDate(cond, function (o) {
+                        res.json(o);
+                    });
+                }
+                else {
+                    res.json({
+                        code: 10,
+                        msg: 'lost pid'
+                    });
+                }
+            });
         }
     },
     userinfo: {
@@ -428,3 +450,14 @@ module.exports = {
         }
     }
 };
+
+/**
+ * 获取日期字符串
+ * @param date
+ */
+function getDateStr(date) {
+    if (date) {
+        return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + (date.getDate());
+    }
+    return '';
+}
