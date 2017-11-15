@@ -1,4 +1,5 @@
 logs
+log
 *.log
 .grunt
 gulpfile.js
