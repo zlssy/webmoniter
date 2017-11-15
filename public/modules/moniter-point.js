@@ -35,7 +35,7 @@ define('moniter-point', ['jquery', 'util', 'dialog', 'simpleTable'], function ($
     };
 
     function query() {
-        projectNameDom.html(projectName + '&nbsp;&gt;&nbsp;【' + curPageInfo.name+'】');
+        projectNameDom.html(projectName + '&nbsp;&gt;&nbsp;【' + curPageInfo.name + '】');
         $.ajax({
             url: listApi + '?pid=' + curPageInfo._id,
             success: function (json) {
@@ -44,7 +44,11 @@ define('moniter-point', ['jquery', 'util', 'dialog', 'simpleTable'], function ($
                         var t = simpleTable({
                             cols: [
                                 {name: "名称", id: 'name', width: 200},
-                                {name: "简述", id: 'desc'},
+                                {
+                                    name: "类型", id: 'type', format: function (v) {
+                                    return ['<span style="color:red;">按量统计</span>', '<span style="color:green;">按值统计</span>'][v - 0] || '&nbsp;';
+                                }
+                                },
                                 {name: "标记", id: 'tag', width: 60, css: 'text-center'},
                                 {
                                     name: "操作", id: '_id', width: 120, css: 'text-center',
@@ -89,11 +93,11 @@ define('moniter-point', ['jquery', 'util', 'dialog', 'simpleTable'], function ($
                 id = $el.attr('id'),
                 cls = $el.attr('class');
 
-            var name, desc, tag, index;
+            var name, desc, tag, type, index;
             if ('button' === tagname && 'p-create' === id) {
                 createPanel = dialog({
                     title: '创建监控点',
-                    content: util.formatJson(createTpl,{
+                    content: util.formatJson(createTpl, {
                         pagename: curPageInfo.name,
                         maxTag: maxTag
                     })
@@ -111,6 +115,7 @@ define('moniter-point', ['jquery', 'util', 'dialog', 'simpleTable'], function ($
                 name = $('input[name=name]').val();
                 desc = $('input[name=desc]').val();
                 tag = $('input[name=tag]').val();
+                type = $('select[name=type]').val();
 
                 if (curPageInfo._id && name && /\d+/.test(tag)) {
                     $.ajax({
@@ -120,6 +125,7 @@ define('moniter-point', ['jquery', 'util', 'dialog', 'simpleTable'], function ($
                             pid: curPageInfo._id,
                             name: name,
                             desc: desc,
+                            type: type,
                             tag: tag
                         },
                         success: function (json) {

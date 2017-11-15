@@ -180,7 +180,9 @@ define('moniter-view', ['jquery', 'util', 'dialog', 'moment', 'pager', 'simpleTa
                 $.ajax({
                     url: updateUserApi,
                     method: 'post',
-                    data: {page: userInfo.platPages.join(',')},
+                    data: {page: userInfo.platPages.filter(function (v) {
+                        return v != '';
+                    }).join(',')},
                     success: function (json) {
                         if (json.code === 0) {
                             info('推送成功');

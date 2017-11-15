@@ -44,5 +44,20 @@ module.exports = {
                 data: data
             });
         });
+    },
+    getStatTagByPid: function (pid, cb) {
+        var query = Point.find({pid: pid, type: 0});
+        query.exec(function (err, data) {
+            if (err) {
+                return cb({
+                    code: 1,
+                    msg: err.message
+                });
+            }
+            return cb({
+                code: 0,
+                data: data
+            });
+        });
     }
 };

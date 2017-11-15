@@ -56,7 +56,7 @@ module.exports = {
         }
     },
     stat: function (cond, cb) {
-        Record.find(cond || {}, {tag: 1, createTime: 1, _id: 0}, function (err, data) {
+        Record.find(cond || {}, {tag: 1, value: 1, createTime: 1, _id: 0}, function (err, data) {
             if (err) {
                 return cb({
                     code: 1,
@@ -99,6 +99,20 @@ module.exports = {
                 });
             }
             cb({
+                code: 0,
+                data: data
+            });
+        });
+    },
+    delByPidAndTag: function (pid, tag, cb) {
+        Record.remove({pid: pid, tag: tag}, function (err, data) {
+            if (err) {
+                return cb({
+                    code: 1,
+                    msg: err.message
+                });
+            }
+            return cb({
                 code: 0,
                 data: data
             });

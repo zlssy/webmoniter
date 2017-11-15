@@ -21,9 +21,11 @@ router.get('/reg', function (req, res, next) {
 
 router.post('/reg', function (req, res, next) {
     var username = req.body.username,
-        password = req.body.password;
+        password = req.body.password,
+        name = req.body.name;
     Account.register(new Account({
         username: username,
+        name: name,
         active: false
     }), password, function (err, account) {
         if (err) {

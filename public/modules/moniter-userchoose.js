@@ -2,7 +2,7 @@ define('moniter-userchoose', ['jquery', 'dialog', 'util'], function ($, dialog, 
     var userApi = globalConfig.apiRoot + 'account/search',
         guid = 10,
         templates = [],
-        itemTpl = '<li class="user">{name}</li>';
+        itemTpl = '<li class="user" data-v="{val}">{name}</li>';
 
     templates.push('<div id="{id}" class="moniter-user-choose">');
     templates.push('<div class="user-choose-toolbar"></div>');
@@ -28,6 +28,7 @@ define('moniter-userchoose', ['jquery', 'dialog', 'util'], function ($, dialog, 
         this.height = this.opt.height || 500;
         this.allUsers = [];
         this.nonchoose = [];
+        this.userMap = {};
         this.init.apply(this);
         this.compent = dialog({
             title: '用户选择',
@@ -56,6 +57,7 @@ define('moniter-userchoose', ['jquery', 'dialog', 'util'], function ($, dialog, 
                     if (v.active && choose.indexOf(v.username) < 0) {
                         self.nonchoose.push(v.username);
                     }
+                    self.userMap[v.username] = v;
                 });
                 self.updateChoose();
             });
@@ -76,14 +78,22 @@ define('moniter-userchoose', ['jquery', 'dialog', 'util'], function ($, dialog, 
             });
         },
         updateChoose: function () {
-            var list = [];
+            var list = [], item;
             for (var i = 0, l = this.nonchoose.length; i < l; i++) {
-                list.push(util.format(itemTpl, {name: this.nonchoose[i]}));
+                item = this.userMap[this.nonchoose[i]];
+                list.push(util.format(itemTpl, {
+                    name: (item && item.name || this.nonchoose[i]) + '(' + this.nonchoose[i] + ')',
+                    val: this.nonchoose[i]
+                }));
             }
             $('#' + this.id + '-left').html(list.join(''));
             list = [];
             for (var i = 0, l = this.choose.length; i < l; i++) {
-                list.push(util.format(itemTpl, {name: this.choose[i]}));
+                item = this.userMap[this.choose[i]];
+                list.push(util.format(itemTpl, {
+                    name: (item && item.name || this.choose[i]) + '(' + this.choose[i] + ')',
+                    val: this.choose[i]
+                }));
             }
             $('#' + this.id + '-right').html(list.join(''));
         },
@@ -124,7 +134,7 @@ define('moniter-userchoose', ['jquery', 'dialog', 'util'], function ($, dialog, 
                 if (cls && cls.indexOf('move-2-right') > -1) {
                     // move choose to right
                     $('#' + this.id + '-left .user.choose').each(function (i, v) {
-                        var user = util.trim($(v).html()), index = self.nonchoose.indexOf(user);
+                        var user = util.trim($(v).data('v')), index = self.nonchoose.indexOf(user);
                         if (index > -1) {
                             self.nonchoose.splice(index, 1);
                         }
@@ -135,7 +145,7 @@ define('moniter-userchoose', ['jquery', 'dialog', 'util'], function ($, dialog, 
                 if (cls && cls.indexOf('move-2-left') > -1) {
                     // move choose to left
                     $('#' + this.id + '-right .user.choose').each(function (i, v) {
-                        var user = util.trim($(v).html()), index = self.choose.indexOf(user);
+                        var user = util.trim($(v).data('v')), index = self.choose.indexOf(user);
                         if (index > -1) {
                             self.choose.splice(index, 1);
                         }

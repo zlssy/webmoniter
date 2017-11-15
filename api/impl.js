@@ -296,6 +296,7 @@ module.exports = {
             p.name = req.body.name;
             p.desc = req.body.desc;
             p.tag = req.body.tag - 0;
+            p.type = req.body.type - 0;
             if (p.pid && p.name) {
                 Point.create(p, function (o) {
                     res.json(o);
@@ -312,7 +313,13 @@ module.exports = {
             var id = req.body.id;
             if (id) {
                 Point.del(id, function (o) {
-                    res.json(o);
+                    // res.json(o);
+                    if (o.code === 0) {
+                        // 继续删除节点记录
+                        Record.delByPidAndTag(o.data.pid, o.data.tag, function (om) {
+                            res.json(om);
+                        });
+                    }
                 });
             }
             else {
@@ -381,9 +388,11 @@ module.exports = {
                 var pid = req.query['pid'],
                     startDate = req.query['startdate'],
                     endDate = req.query['enddate'],
+                    tag = req.query['tag'],
                     cond = [{pid: pid}], q = {};
                 startDate && cond.push({createTime: {$gt: startDate}});
                 endDate && cond.push({createTime: {$lt: endDate}});
+                tag && cond.push({tag: {$in: tag.split(',')}});
                 if (pid) {
                     cond.length === 1 ? q = cond[0] : q = {$and: cond};
                     Record.stat(q, function (o) {
@@ -408,8 +417,21 @@ module.exports = {
                     startDate && cond.push({createTime: {$gt: new Date(startDate - 0)}});
                     endDate && cond.push({createTime: {$lt: new Date(endDate - 0)}});
                     cond.push({pid: pid});
-                    Record.statByDate(cond, function (o) {
-                        res.json(o);
+                    Point.getStatTagByPid(pid, function (o) {
+                        if (o.code === 0) {
+                            var tagArr = o.data.map(function (v) {
+                                return v.tag;
+                            });
+                            if (tagArr && tagArr.length) {
+                                cond.push({tag: {$in: tagArr}});
+                            }
+                            Record.statByDate(cond, function (om) {
+                                res.json(om);
+                            });
+                        }
+                        else {
+                            res.json(o);
+                        }
                     });
                 }
                 else {
