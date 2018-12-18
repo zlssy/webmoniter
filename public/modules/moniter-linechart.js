@@ -49,6 +49,7 @@ define('moniter-linechart', ['jquery', 'util', 'moment', 'echarts', 'underscore'
                         self.drawMultiLine(data);
                     }).catch(function (message) {
                         self.linechart.hideLoading();
+                        self.container.find('#' + self.id).hide();
                     });
                 }
                 if (!isEmptyObject(self.vPointMap)) {
@@ -98,8 +99,15 @@ define('moniter-linechart', ['jquery', 'util', 'moment', 'echarts', 'underscore'
         getLatestMonthData: function () {
             var self = this;
             return new Promise(function (resolve, reject) {
+                var tags = [];
+                for (var k in self.vPointMap) {
+                    if (self.vPointMap.hasOwnProperty((k))) {
+                        tags.push(k);
+                    }
+                }
+                tags = tags.length ? {tag: tags.join(',')} : {};
                 $.ajax({
-                    url: recordApi + util.object2param(self.cond),
+                    url: recordApi + util.object2param($.extend(true, {}, self.cond, tags)),
                     success: function (json) {
                         if (json.code === 0) {
                             resolve(json.data);
@@ -312,7 +320,7 @@ define('moniter-linechart', ['jquery', 'util', 'moment', 'echarts', 'underscore'
                 d = data[i];
                 !data_map[d.tag] && (data_map[d.tag] = {date: [], data: []});
                 data_map[d.tag].date.push(moment(d.createTime).format('YYYY-MM-DD hh:mm:ss'));
-                data_map[d.tag].data.push(d.value);
+                data_map[d.tag].data.push(d.value || 0);
             }
             return data_map;
         },
@@ -344,6 +352,7 @@ define('moniter-linechart', ['jquery', 'util', 'moment', 'echarts', 'underscore'
     }
 
     return function (opt) {
-        return new LineChart(opt);;
+        return new LineChart(opt);
+        ;
     }
 });
